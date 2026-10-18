@@ -1,3 +1,4 @@
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
@@ -12,10 +13,14 @@ class BookingInquiryRepository:
     def create(self, inquiry: BookingInquiryCreate) -> BookingInquiry:
         booking_inquiry = BookingInquiry(**inquiry.model_dump())
 
-        self.db.add(booking_inquiry)
-        self.db.commit()
-        self.db.refresh(booking_inquiry)
-        return booking_inquiry
+        try:
+            self.db.add(booking_inquiry)
+            self.db.commit()
+            self.db.refresh(booking_inquiry)
+            return booking_inquiry
+        except SQLAlchemyError:
+            self.db.rollback()
+            raise
 
 
     def get_by_id(self, inquiry_id: int)-> BookingInquiry | None:
