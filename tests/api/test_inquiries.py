@@ -1,4 +1,13 @@
 
+from sqlalchemy import text
+
+
+def test_db_session_can_query_database(db_session):
+    result = db_session.execute(text("SELECT 1")).scalar_one()
+
+    assert result == 1
+
+
 def test_create_inquiry(client):
     payload = {
         "name": "Ali Khan",
@@ -60,5 +69,4 @@ def test_invalid_traveler_count_is_rejected(client):
     response = client.post("/api/v1/inquiries", json=payload)
 
     assert response.status_code == 422
-
 
