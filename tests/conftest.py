@@ -8,6 +8,15 @@ from sqlalchemy.pool import StaticPool
 from app.core.database import Base, get_db
 from app.main import app
 
+# @pytest.fixture
+# def inquiry_data():
+#     return  {
+#             "name": "Ali Khan",
+#             "contact_number": "+923001234567",
+#             "destination": "Kandy, Sri Lanka",
+#             "number_of_travelers": 2,
+#             "duration_days": 7,
+#         }
 
 @pytest.fixture
 def test_engine():
