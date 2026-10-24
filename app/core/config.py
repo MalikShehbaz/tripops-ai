@@ -5,6 +5,11 @@ class Settings(BaseSettings):
     app_name: str = "Tripops AI"
     app_env: str = "development"
     database_url: str = ""
+    gemini_api_key: str | None = None
+    gemini_model:str = "gemini-3.8-flash-lite"
+    gemini_embedding_model: str = ""
+    embedding_dimensions:int 
+
 
     model_config = SettingsConfigDict(
         env_file=".env",
